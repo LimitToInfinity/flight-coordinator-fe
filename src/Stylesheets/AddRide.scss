@@ -1,0 +1,44 @@
+.add-ride {
+  display: flex;
+  flex-direction: column;
+
+  .form-buttons {
+    display: flex;
+    justify-content: space-between;
+
+    input[type=submit] {
+      width: 20%;
+      min-width: 70px;
+      height: 2rem;
+      margin: 1rem 0 0 1rem;
+      padding: 1px 6px;
+      color: midnightblue;
+      border: lightskyblue solid 1px;
+      border-radius: 7px;
+      background-color: inherit;
+      cursor: pointer;
+
+      &:hover {
+        background-color: hsl(200, 90%, 96%);
+      }
+    }
+
+    .delete-ride {
+      width: 20%;
+      min-width: 70px;
+      height: 2rem;
+      margin: 1rem 1rem 0 0;
+      padding: 0px 6px;
+      color: darkred;
+      border: firebrick solid 1px;
+      border-radius: 7px;
+      background-color: inherit;
+      cursor: pointer;
+
+      &:hover {
+        background-color: hsl(0, 90%, 96%);
+      }
+    }
+  }
+}
+

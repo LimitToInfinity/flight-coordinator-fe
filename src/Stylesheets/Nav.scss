@@ -1,0 +1,43 @@
+nav {
+
+  .person {
+    display: flex;
+    justify-content: flex-end;
+    width: unset;
+    border: none;
+    margin: 0;
+
+    div {
+      height: 60px;
+      margin: 0;
+
+      h3 {
+        font-size: 1.1rem;
+        font-weight: 600;
+      }
+
+      img {
+        margin: 0 1rem;
+        width: 70px;
+        height: 70px;
+        border-radius: 50%;
+        object-fit: cover;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 600px) {
+  nav {
+
+    .person {
+
+      div {
+
+        h3 {
+          width: min-content;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,30 @@
+.flight-row {
+  cursor: pointer;
+  border-bottom: 1px solid steelblue;
+
+  &:hover {
+    background-color: hsl(0, 0%, 90%);
+  }
+
+  td {
+    padding: 7px;
+    text-align: center;
+    display: inline-block;
+    width: 5rem;
+
+    img {
+      height: 60px;
+      width: 60px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+  }
+
+  .has {
+    color: green;
+  }
+
+  .needs {
+    color: red;
+  }
+}
