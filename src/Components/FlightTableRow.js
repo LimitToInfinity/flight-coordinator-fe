@@ -1,7 +1,8 @@
 import { useDispatch } from 'react-redux';
 import moment from 'moment';
 
-import AddRide from './AddRide';
+import { displayModal } from '../Redux/Features/Modal/modalSlice';
+import { setFlight } from '../Redux/Features/Flights/flightSlice';
 
 import '../Stylesheets/FlightTableRow.scss';
 
@@ -14,9 +15,10 @@ function FlightTableRow({ flight }) {
   const time = moment.parseZone(flight.datetime_string).format('h:mm a');
 
   const handleClick = () => {
-    dispatch({ type: 'SET_FLIGHT', flight });
-    dispatch({ type: 'SHOW_MODAL', innerComponent: AddRide });
-  }
+    console.log('handleClick');
+    dispatch(setFlight(flight));
+    dispatch(displayModal({ innerComponentName: 'AddRide' }));
+  };
 
   return (
     <tr className='flight-row' onClick={ handleClick }>

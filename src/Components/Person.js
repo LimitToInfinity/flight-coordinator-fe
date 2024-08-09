@@ -1,18 +1,18 @@
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+
+import { deselectPerson, selectPerson } from '../Redux/Features/People/personSlice';
 
 import '../Stylesheets/Person.scss';
 
-function Person({ person }) {
+function Person({ person, isProfile }) {
 
   const dispatch = useDispatch();
 
-  const selectedPerson = useSelector(state => state.person);
-
   const handleClick = () => {
     window.scroll(0, 0);
-    selectedPerson.id
-      ? dispatch({ type: 'DESELECT_PERSON' })
-      : dispatch({ type: 'SELECT_PERSON', person });
+    isProfile
+      ? dispatch(deselectPerson())
+      : dispatch(selectPerson(person));
   }
 
   const personCard = person => {
@@ -36,16 +36,10 @@ function Person({ person }) {
     );
   }
 
-  const profile = () => {
-    return selectedPerson.id
-      ? personCard(selectedPerson)
-      : noPerson();
-  }
-
   return (
     <div className='person'>
       <div onClick={ handleClick }>
-        { person ? personCard(person) : profile() }
+        { person.id ? personCard(person) : noPerson() }
       </div>
     </div>
   );

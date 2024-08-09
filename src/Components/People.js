@@ -1,12 +1,14 @@
 import { useSelector } from 'react-redux';
 
+import { peopleInfo } from '../Redux/Features/People/peopleSlice';
+
 import '../Stylesheets/People.scss';
 
 import Person from './Person';
 
 function People() {
 
-  const people = useSelector(state => state.people);
+  const { people } = useSelector(peopleInfo);
 
   const displayPeople = () => {
     return people.map(person => {

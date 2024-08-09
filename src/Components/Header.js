@@ -1,5 +1,8 @@
 import { useDispatch } from 'react-redux';
 
+import { logoutConfirmed } from '../Redux/Features/Authenticated/authenticatedSlice';
+import { removeToken } from '../Redux/Features/Login/loginSlice';
+
 import '../Stylesheets/Header.scss';
 
 import Nav from './Nav';
@@ -14,7 +17,8 @@ function Header() {
 
   const logout = () => {
     localStorage.clear();
-    dispatch({ type: 'LOGOUT' });
+    dispatch(logoutConfirmed());
+    dispatch(removeToken());
   }
 
   return (

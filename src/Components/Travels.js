@@ -3,14 +3,16 @@ import moment from 'moment';
 
 import '../Stylesheets/Travels.scss';
 
-import AddFlight from './AddFlight';
+import { displayModal } from '../Redux/Features/Modal/modalSlice';
+import { flightsInfo } from '../Redux/Features/Flights/flightsSlice';
+
 import Flights from './Flights';
 
 function Travels() {
 
   const dispatch = useDispatch();
 
-  const allFlights = useSelector(state => state.flights);
+  const { flights: allFlights } = useSelector(flightsInfo);
 
   const now = moment.parseZone(new Date()).format();
   const inTheFuture = flight => {
@@ -26,7 +28,7 @@ function Travels() {
   return (
     <section className='travels'>
       <button
-        onClick={() => dispatch({ type: 'SHOW_MODAL', innerComponent: AddFlight })}
+        onClick={() => dispatch(displayModal({ innerComponentName: 'AddFlight' }))}
         className='add-flight'
       >
         Add flight

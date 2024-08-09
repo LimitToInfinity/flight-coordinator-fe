@@ -3,6 +3,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import moment from 'moment';
 import Datetime from 'react-datetime';
 
+import { addFlight } from '../Redux/Features/Flights/flightsSlice';
+import { personInfo } from '../Redux/Features/People/personSlice';
+
 import '../Stylesheets/AddFlight.scss';
 
 import Select from './Select';
@@ -15,7 +18,7 @@ function AddFlight({ closeModal }) {
 
   const dispatch = useDispatch();
 
-  const person = useSelector(state => state.person);
+  const person = useSelector(personInfo);
 
   const [datetime, setDatetime] = useState( moment(new Date()) );
   const [direction, setDirection] = useState('');
@@ -128,7 +131,7 @@ function createFlight(flightInfo, dispatch) {
 
   authFetch(urls.flights, 'POST', flightBody)
     .then(newFlight => {
-      dispatch({ type: 'ADD_FLIGHT', newFlight: newFlight.data.attributes });
+      dispatch(addFlight(newFlight.data.attributes));
     })
     .catch(error => console.error(error));
 }

@@ -3,24 +3,27 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import '../Stylesheets/Authorized.scss';
 
+import { getFlights } from '../Redux/Features/Flights/flightsSlice';
+import { getPeople } from '../Redux/Features/People/peopleSlice';
+import { personInfo } from '../Redux/Features/People/personSlice';
+
 import People from './People';
 import Header from './Header';
 import Travels from './Travels';
 import Modal from './Modal';
+import { isModalShown } from '../Redux/Features/Modal/modalSlice';
 
-import { urls } from '../utilities/urls';
-import { authFetch, aToZ, extractData } from '../utilities/functions';
 
 function Authorized() {
 
   const dispatch = useDispatch();
 
-  const showModal = useSelector(state => state.modal.showModal);
-  const person = useSelector(state => state.person);
+  const showModal = useSelector(isModalShown);
+  const person = useSelector(personInfo);
 
   useEffect(() => {
-    getPeople().then(people => dispatch({ type: 'SET_PEOPLE', people }));
-    getFlights().then(flights => dispatch({ type: 'SET_FLIGHTS', flights }));
+    dispatch(getPeople());
+    dispatch(getFlights());
   }, [dispatch]);
 
   return (
@@ -30,18 +33,6 @@ function Authorized() {
       <main>{!person.id ? <People /> : <Travels />}</main>
     </div>
   );
-}
-
-async function getPeople() {
-  const json = await authFetch(urls.people);
-  const people = extractData(json).sort(aToZ);
-  return people;
-}
-
-async function getFlights() {
-  const json = await authFetch(urls.flights);
-  const flights = extractData(json);
-  return flights;
 }
 
 export default Authorized;

@@ -1,16 +1,18 @@
-import { Route } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 
 import Login from './Login';
 import Authorized from './Authorized';
 import Travels from './Travels';
 
 function MyRoutes() {
+
   return (
-    <> 
-      <Route path='/login' component={Login} />
-      <Route path='/choose' component={Authorized} />
-      <Route path='/flights' component={Travels} />
-    </>
+    <Routes>
+      <Route path='/' />
+      <Route path='/login' Component={Login} />
+      <Route path='/choose' Component={Authorized} />
+      <Route path='/flights' Component={Travels} />
+    </Routes>
   );
 }
 

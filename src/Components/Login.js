@@ -1,5 +1,8 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+
+import { attemptLogin } from '../Redux/Features/Login/loginSlice';
 
 import '../Stylesheets/Login.scss';
 
@@ -9,33 +12,22 @@ import MUITypography from './MUITypography';
 import MUITextField from './MUITextField';
 import MUIButton from './MUIButton';
 
-import { urls } from '../utilities/urls';
-import { noAuthFetch } from '../utilities/functions';
-
-function Login({ history }) {
+function Login() {
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
   const handleSubmit = (event, guest) => {
     event.preventDefault();
-    dispatch({ type: 'LOADING' });
 
-    const userBody = JSON.stringify({
+    dispatch(attemptLogin({
       username: guest || username,
-      password: guest || password
-    });
-
-    noAuthFetch(urls.login, 'POST', userBody)
-      .then(({token}) => {
-        localStorage.setItem('token', token);
-        history.replace('/choose');
-        dispatch({ type: 'LOGIN' });
-        dispatch({ type: 'LOADED' });
-      })
-      .catch(error => console.error(error));
+      password: guest || password,
+      navigate
+    }));
   }
 
   return (

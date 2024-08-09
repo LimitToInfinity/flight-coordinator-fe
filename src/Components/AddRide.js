@@ -3,6 +3,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import moment from 'moment';
 import Datetime from 'react-datetime';
 
+import { flightInfo } from '../Redux/Features/Flights/flightSlice';
+import { personInfo } from '../Redux/Features/People/personSlice';
+import { removeRide, updateRide } from '../Redux/Features/Flights/flightsSlice';
+
 import '../Stylesheets/AddRide.scss';
 
 import { urls } from '../utilities/urls';
@@ -12,8 +16,8 @@ function AddRide({ closeModal }) {
 
   const dispatch = useDispatch();
 
-  const person = useSelector(state => state.person);
-  const flight = useSelector(state => state.flight);
+  const person = useSelector(personInfo);
+  const { flight } = useSelector(flightInfo);
 
   const [datetime, setDatetime] = useState(
     moment.parseZone(flight.datetime_string)
@@ -23,7 +27,7 @@ function AddRide({ closeModal }) {
     const deleteURL = `${urls.rides}/${flight.ride.id}`;
     authFetch(deleteURL, 'DELETE');
 
-    dispatch({ type: 'REMOVE_RIDE', modifiedFlightId: flight.id });
+    dispatch(removeRide({ modifiedFlightId: flight.id }));
   }
 
   const handleSubmit = event => {
@@ -107,11 +111,10 @@ function updateCurrentRide(person, flight, datetime, dispatch) {
 
   authFetch(patchURL, 'PATCH', rideBody)
     .then(updatedRide => {
-      dispatch({
-        type: 'UPDATE_RIDE',
+      dispatch(updateRide({
         modifiedFlightId: flight.id,
         ride: updatedRide.data.attributes
-      });
+      }));
     })
     .catch(error => console.error(error));
 }
@@ -131,11 +134,10 @@ function createRide(person, flight, datetime, dispatch) {
 
   authFetch(urls.rides, 'POST', rideBody)
     .then(newRide => {
-      dispatch({
-        type: 'UPDATE_RIDE',
+      dispatch(updateRide({
         modifiedFlightId: flight.id,
         ride: newRide.data.attributes
-      });
+      }));
     })
     .catch(error => console.error(error));
 }

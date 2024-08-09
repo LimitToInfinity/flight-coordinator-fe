@@ -1,21 +1,21 @@
-import { createStore, combineReducers } from 'redux';
+import { configureStore } from '@reduxjs/toolkit'
 
-import { loadingReducer } from './Reducers/loading';
-import { loginReducer } from './Reducers/login';
-import { modalReducer } from './Reducers/modal';
-import { personReducer } from './Reducers/person';
-import { flightReducer } from './Reducers/flight';
-import { peopleReducer } from './Reducers/people';
-import { flightsReducer } from './Reducers/flights';
+import authenticatedReducer from './Features/Authenticated/authenticatedSlice';
+import loginReducer from './Features/Login/loginSlice';
+import personReducer from './Features/People/personSlice';
+import peopleReducer from './Features/People/peopleSlice';
+import flightReducer from './Features/Flights/flightSlice';
+import flightsReducer from './Features/Flights/flightsSlice';
+import modalReducer from './Features/Modal/modalSlice';
 
-const rootReducer = combineReducers({
-  loading: loadingReducer,
-  login: loginReducer,
-  modal: modalReducer,
-  person: personReducer,
-  flight: flightReducer,
-  people: peopleReducer,
-  flights: flightsReducer
+export const store = configureStore({
+  reducer: {
+    authenticated: authenticatedReducer,
+    login: loginReducer,
+    modal: modalReducer,
+    person: personReducer,
+    people: peopleReducer,
+    flight: flightReducer,
+    flights: flightsReducer
+  }
 });
-
-export const store = createStore(rootReducer);
