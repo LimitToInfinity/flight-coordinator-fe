@@ -15,7 +15,6 @@ function FlightTableRow({ flight }) {
   const time = moment.parseZone(flight.datetime_string).format('h:mm a');
 
   const handleClick = () => {
-    console.log('handleClick');
     dispatch(setFlight(flight));
     dispatch(displayModal({ innerComponentName: 'AddRide' }));
   };

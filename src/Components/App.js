@@ -22,7 +22,6 @@ function App() {
   const { isAuthenticated, isLoading } = useSelector(authenticated);
 
   useEffect(() => {
-    console.log('isAuthenticated', isAuthenticated);
     if (!isAuthenticated) {
       const token = localStorage.token;
       dispatch(attemptAuthentication({ token, navigate }));
