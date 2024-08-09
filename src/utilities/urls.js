@@ -1,5 +1,4 @@
-// const baseURL = 'https://flightcoordinatorbe-production.up.railway.app';
-const baseURL = 'http://localhost:3000/';
+const baseURL = 'https://flightcoordinatorbe-production.up.railway.app';
 
 export const urls = {
   authenticate: `${baseURL}/authenticate`,
